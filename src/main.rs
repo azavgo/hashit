@@ -1,10 +1,25 @@
 fn hash_md5(s: &str) -> &str{
-    "This is my output"
+    unimplemented!();
+}
+//Will work correctly on the 64-bit OS, not sure about 32-bit OS
+fn padding(input: &str) -> String {
+    let input_size = input.len(); //size of the input in bytes
+    let input_size_str = input_size.to_string();//size in bytes of the input_size
+    let input_size_str_size = input_size_str.len();
+    if input_size <= 56 {
+        let v: Vec<u8> = vec![0; 64 - input_size - 1 - input_size_str_size];
+        let v_str: String = v.into_iter().map(|s| s.to_string()).collect();
+        format!("{}{}{}{}", input, "1", v_str, input_size_str)
+    } else {
+        unimplemented!();
+    }
+    
 }
 
 fn main() {
-    let s = "Input";
-    println!("{}", hash_md5(s));
+    let input = "They are deterministic";
+    let output = padding(input);
+    println!("{}", output);
 }
 
 #[cfg(test)]
