@@ -12,7 +12,7 @@
     [dependencies]
     uuidv4 = {git = "https://github.com/azavgo/hashit", branch = "main"}
 ```
-1. Generate SHA256 hash of a string:  
+2. Generate SHA256 hash of a string:  
 ```Rust
     use hashit::*;
 
@@ -28,7 +28,7 @@
     }
 
 ```
-1. Generate SHA256 hash of a file input_file_test.txt: 
+3. Generate SHA256 hash of a file input_file_test.txt: 
 ```Rust
     use hashit::*;
     
