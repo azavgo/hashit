@@ -1,20 +1,45 @@
-# hashit
-Library of hash functions
-## This library allows to create a hash of a string slice
-2. The default algorithm will be SHA256. The explicit flag will also be added as sha256
-3. Alternatively one can use SHA512 with sha512 flag
-4. Later on SHA254 may be added too, the flag will be sha254
-1. MD5 hash function algorithm (not recommended, however possible with the md5 flag): https://www.comparitech.com/blog/information-security/md5-algorithm-with-examples/
+## Library to calculate SHA256 hash of a string or a file 
 
-How to use this program: 
-hashit "My Password"
-The output will be a string representing the SHA256 hash of the string "My Password"
+### This library uses [sha256 = "1.6.0"](https://crates.io/crates/sha256)
 
-hashit -sha512 "My Password"
-The output will be a string representing the SHA512 hash of the string "My Password" 
+### Features: 
+1. SHA256 hash of a string: `InputString::new(input: String) -> Self`; `fn hash_sha256(&self) -> Result<String, HashitError>`  
+1. SHA256 hash of a file: `InputFile::new(input: &'a Path) -> Self`; `fn hash_sha256(&self) -> Result<String, HashitError>`  
 
-hashit -c "My Password" "hash string" 
-The output will be either "Pass" or "Fail". The utility will then compare (flag -c) the string representing 
-a password, check the supplied hash string to determin which hashing algorithm to be used. Then it will 
-calculate the hash string of the "My Password" string and compare the result with the supplied hash string.
+### How to use this library: 
+1. Add to Cargo.toml: 
+```Toml
+    [dependencies]
+    uuidv4 = {git = "https://github.com/azavgo/hashit", branch = "main"}
+```
+1. Generate SHA256 hash of a string:  
+```Rust
+    use hashit::*;
 
+    fn main() -> Result<(), HashitError>{
+        let input = "hello".to_owned();
+        let input_string = InputString::new(input);
+        let hash = input_string.hash_sha256()?;
+        assert_eq!(
+            hash,
+            "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
+        );
+        Ok(())
+    }
+
+```
+1. Generate SHA256 hash of a file input_file_test.txt: 
+```Rust
+    use hashit::*;
+    
+    fn main() -> Result<(), HashitError> {
+        let input = Path::new("./input_file_test.txt");
+        let input_file = InputFile::new(input);
+        let hash = input_file.hash_sha256()?;
+        assert_eq!(
+            hash,
+            "6d2dd541398faa91d8e29d0940e0ad602dcabc9df6b5b6f71247fb326bcd311d"
+        );
+        Ok(())
+    }
+```
