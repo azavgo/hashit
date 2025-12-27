@@ -10,7 +10,7 @@
 1. Add to Cargo.toml: 
 ```Toml
     [dependencies]
-    uuidv4 = {git = "https://github.com/azavgo/hashit", branch = "main"}
+    hashit = {git = "https://github.com/azavgo/hashit", branch = "main"}
 ```
 2. Generate SHA256 hash of a string:  
 ```Rust
